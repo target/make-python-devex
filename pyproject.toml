@@ -1,0 +1,112 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "example"
+version = "0.0.1"
+description = "This is a demonstration of the Make Python Devex concept project"
+authors = ["Colin Dean <c.o.l.i.n.d.e.a.n@example.com>"]
+license = "CC0"
+readme = "README.md"
+
+[tool.poetry.scripts]
+example-make-python-devex = "example:main"
+
+[tool.poetry.dependencies]
+# set Python constraints
+python = ">=3.9,<3.13"
+## commonly used libraries
+# retry failing method calls
+retry2 = "^0.9"
+# mark things as deprecated
+deprecated = "^1.2"
+# simple logging that just works
+loguru = "*"
+
+[tool.poetry.group.dev.dependencies]
+# test framework
+pytest = "^7"
+# html output
+pytest-html = "*"
+# necessary for best html output
+ansi2html = "*"
+# Test Anything Protocol output
+pytest-tap = "*"
+# coverage.py integration
+pytest-cov = "*"
+# opinionated code formatter
+black = ">=22"
+# type hints checker
+mypy = "*"
+# xml library, used for outputting HTML reports from mypy, etc.
+lxml = "*"
+# lightning fast linter and style checker
+ruff = "*"
+# universal dependency retriver
+peru = "*"
+
+## types packages
+types-Deprecated = "*"
+types-retry = "*"
+
+
+## Configure publish destination explicitly, for safety
+## Default is PyPI but you probably don't want to do that internally.
+## See also https://python-poetry.org/docs/repositories/#publishable-repositories
+[[tool.poetry.source]]
+name = "publish-source"
+url = "https://pypi.example.com/pypi/example-repo"
+# url = "https://pypi.org/simple/"
+priority = "explicit"
+
+###
+# Below here are rarely-touched settings for the various tools used in this project.
+# N.b. Change the Python versions below when changing tool.poetry.dependencies.python above.
+###
+
+[tool.black]
+# 119 = GitHub's wrapping limit
+line-length = 119
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests as integration tests (deselect with '-m \"not integration\"')",
+    "unittest: marks tests as unit tests (deselect with '-m \"not unittest\"')"
+]
+minversion = "7.0"
+testpaths = ["tests"]
+# -vvvv = as verbose as it gets
+# -ra = show extra test summary for all except passed
+# coverage options passed via pytest-cov and reporting output in HTML, JUNIT, and TAP form
+addopts = """
+    -vvvv -r A --quiet \
+    --cov --cov-report xml --cov-report html --cov-report term \
+    --junit-xml=build/report.junit.xml --html=build/report.html --self-contained-html \
+    --tap-outdir=build --tap-combined \
+    --durations=10
+"""
+
+# Configure coverage.py, which is enabled in the pytest addopts above
+[tool.coverage.run]
+branch = true
+[tool.coverage.report]
+skip_empty = true
+[tool.coverage.html]
+directory = "build/coverage"
+[tool.coverage.xml]
+output = "build/coverage/coverage.xml"
+[tool.coverage.paths]
+source = ["example"]
+
+[tool.ruff]
+# Same as Black.
+line-length = 119
+target-version = "py39"

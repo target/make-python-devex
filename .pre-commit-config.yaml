@@ -1,0 +1,48 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  -   repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v4.4.0
+      hooks:
+        - id: trailing-whitespace
+        - id: end-of-file-fixer
+        - id: check-yaml
+        - id: check-json
+        - id: check-added-large-files
+        - id: check-case-conflict
+        - id: check-executables-have-shebangs
+        - id: check-shebang-scripts-are-executable
+        - id: check-symlinks
+        - id: check-merge-conflict
+        - id: destroyed-symlinks
+        - id: check-toml
+
+  # strips outputs from notebook files to reduce churn and minimize repo size
+  - repo: https://github.com/kynan/nbstripout
+    rev: "0.6.1"
+    hooks:
+      - id: nbstripout
+
+  # Prevent old Pythonisms
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.7.0
+    hooks:
+    - id: pyupgrade
+
+  # validate Makefile
+  - repo: https://github.com/mrtazz/checkmake.git
+    rev: "0.2.2"
+    hooks:
+    - id: checkmake
+
+  # Ensure version in repo remains 0.0.0 so version can be set through git tags
+  - repo: local
+    hooks:
+      - id: poetry-version-resetter
+        name: Reset Poetry Project Version to 0.0.0
+        entry: "make poetry-set-version ARTIFACT_VERSION=0.0.0"
+        language: system
+        files: pyproject.toml
+        pass_filenames: false
+        verbose: true
+
