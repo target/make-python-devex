@@ -103,15 +103,24 @@ test-integration: ## Run integration tests
 # $(PYTEST) tests -m integration
 
 .PHONY: check
-check: check-py-black check-py-ruff check-py-mypy ## Run all checks
+check: check-py-ruff-format check-py-ruff-lint check-py-mypy ## Run all checks
 
-.PHONY: check-py-ruff
-check-py-ruff: ## Run ruff linter
-	$(RUFF) example tests
+.PHONY: check-py-ruff-lint
+check-py-ruff-lint: ## Run ruff linter
+	$(RUFF) $(RUFF_OPTS) tgt_measurement tests || \
+		(echo "$(COLOR_RED)Run '$(notdir $(MAKE)) check-py-ruff-fix' to fix some of these automatically if [*] appears above, then run '$(notdir $(MAKE)) $(MAKECMDGOALS)' again." && false)
+
+.PHONY: check-py-ruff-fix
+check-py-ruff-fix: ## Run ruff linter
+	$(MAKE) check-py-ruff-lint RUFF_OPTS=--fix
 
 .PHONY: check-py-black
 check-py-black: ## Runs black code formatter
 	$(BLACK) --check --fast .
+
+.PHONY: check-py-ruff-format
+check-py-ruff-format: ## Runs ruff code formatter
+	$(RUFF) $(RUFF_OPTS) format --check .
 
 BUILD_DIR ?= build
 REPORTS_DIR = $(BUILD_DIR)/reports
@@ -125,8 +134,8 @@ check-precommit: ## Runs pre-commit on all files
 	pre-commit run --all-files
 
 .PHONY: format-py
-format-py: ## Runs Black formatter, makes changes where necessary
-	$(BLACK) .
+format-py: ## Runs formatter, makes changes where necessary
+	$(RUFF) format .
 
 ##@ Building and Publishing
 
@@ -301,4 +310,3 @@ all:
 .PHONY: clean
 clean: ## Clean artifacts from build and dist directories
 	rm -rf $(BUILD_DIR) dist/requirements.txt
-
