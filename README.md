@@ -1,6 +1,6 @@
 # Example repo for Make Python Devex
 
-This repository contains a simple Python project setup
+This repository contains a simple Python® project setup
 using the Make Python DevEx system described and built by Colin Dean.
 
 Run `make help` to see the tasks available.
