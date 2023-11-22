@@ -9,6 +9,10 @@
 ##     N.b. this isn't really setup for Linux, but probably works.
 ##
 
+## Source location
+MODULE_BASE_DIR = example
+TESTS_BASE_DIR = tests
+
 ## Pythonic variables
 # These are set to determine some version information and normal paths to tooling.
 # Python installation artifacts
@@ -94,12 +98,12 @@ test-all: test-unittests test-integration  ## Run all tests
 
 .PHONY: test-unittests
 test-unittests: ## Run unit tests
-	$(PYTEST) tests/unit
+	$(PYTEST) $(TESTS_BASE_DIR)/unit
 # $(PYTEST) tests -m unittest
 
 .PHONY: test-integration
 test-integration: ## Run integration tests
-	$(PYTEST) tests/integration
+	$(PYTEST) $(TESTS_BASE_DIR)/integration
 # $(PYTEST) tests -m integration
 
 .PHONY: check
@@ -107,7 +111,7 @@ check: check-py-ruff-format check-py-ruff-lint check-py-mypy ## Run all checks
 
 .PHONY: check-py-ruff-lint
 check-py-ruff-lint: ## Run ruff linter
-	$(RUFF) $(RUFF_OPTS) tgt_measurement tests || \
+	$(RUFF) $(RUFF_OPTS) $(MODULE_BASE_DIR) $(TESTS_BASE_DIR) || \
 		(echo "$(COLOR_RED)Run '$(notdir $(MAKE)) check-py-ruff-fix' to fix some of these automatically if [*] appears above, then run '$(notdir $(MAKE)) $(MAKECMDGOALS)' again." && false)
 
 .PHONY: check-py-ruff-fix
