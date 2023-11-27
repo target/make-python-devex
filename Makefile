@@ -247,7 +247,7 @@ poetry-install: ## Run poetry install with any environment-required flags
 
 .PHONY: poetry-update
 poetry-update: ## Run poetry update with any environment-required flags, pass PKGS=pkg to update only pkg
-	time $(POETRY) update -v $(PKGS) | tee update.log
+	time $(POETRY) update -v $(PKGS)
 
 .PHONY: poetry-relock
 poetry-relock: pyproject.toml ## Run poetry lock w/o updating deps, use after changing pyproject.toml trivially
