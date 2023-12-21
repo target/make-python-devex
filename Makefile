@@ -27,12 +27,13 @@ PYENV_VERSION_DIR ?= $(shell pyenv root)/versions/$(shell head -n 1 $(PYTHON_VER
 # use just the first
 PYTHON_EXEC ?= $(shell pyenv prefix | cut -d: -f1)/bin/python3
 endif
-ifeq ("$(shell which poetry)","")
-# poetry is installed
-POETRY_TASK =
-else
+POETRY_PATH = $(shell command -v poetry)
+ifeq ("$(POETRY_PATH)","")
 # poetry is not installed
 POETRY_TASK = install-poetry
+else
+# poetry is installed
+POETRY_TASK =
 endif
 
 # If we're on macos arm64, we might to need to build some packages,
@@ -82,6 +83,11 @@ PYTEST ?= $(POETRY) run pytest
 .PHONY: help
 help: ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m\033[0m\n"} /^[a-zA-Z0-9_-]+:.*?##/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^##@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
+
+.PHONY: debug-make
+debug-make: ## Shows ~all runtime-set variables
+	@echo $(foreach v, $(.VARIABLES), $(info $(v) = $($(v))))
+
 
 ##@ Development
 
@@ -181,6 +187,11 @@ python-current: ## Display the version and binary location of python3
 	@$(CURRENT_PYTHON) --version
 	@echo PYTHON_EXEC = $(PYTHON_EXEC)
 
+.PHONY: install-poetry
+install-poetry: ## Installs Poetry to the current Python environment
+	@echo "$(COLOR_ORANGE)Installing Poetry from python-poetry.org with $(CURRENT_PYTHON)$(COLOR_RESET)"
+	curl -sSL https://install.python-poetry.org | $(CURRENT_PYTHON) -
+
 .PHONY: deps
 deps: deps-brew deps-py $(DEPS_TASKS_IF_PERU_CONFIG) install-precommit ## Installs all dependencies
 	@echo "$(COLOR_GREEN)All deps installed!$(COLOR_RESET)"
@@ -221,11 +232,6 @@ deps-peru: $(PERU_CONFIG) ## Installs dependencies from Peru
 .PHONY: deps-ci
 deps-ci: $(DEPS_TASKS_IF_PERU_CONFIG) poetry-install ## Install CI check and test dependencies (assumes Python & Poetry already present in env)
 	@echo "$(COLOR_GREEN)All CI dependencies installed!$(COLOR_RESET)"
-
-.PHONY: install-poetry
-install-poetry: ## Installs Poetry to the current Python environment
-	@echo "$(COLOR_ORANGE)Installing Poetry from python-poetry.org with $(CURRENT_PYTHON)$(COLOR_RESET)"
-	curl -sSL https://install.python-poetry.org | $(CURRENT_PYTHON) -
 
 .PHONY: install-python
 install-python: $(PYTHON_EXEC) ## Installs appropriate Python version
