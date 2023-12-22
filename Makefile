@@ -237,13 +237,28 @@ deps-ci: $(DEPS_TASKS_IF_PERU_CONFIG) poetry-install ## Install CI check and tes
 install-python: $(PYTHON_EXEC) ## Installs appropriate Python version
 	@echo "$(COLOR_GREEN)Python installed to $(PYTHON_EXEC)$(COLOR_RESET)"
 
+# Pyenv already automatically uses Homebrew's libraries if available on macOS
+ifeq ($(shell uname -s), Darwin)
+PYENV_FLAGS =
+endif
+# Force use of Homebrew's libraries in Linux
+# Pyenv discourages this, preferring use of distro-provided libraries.
+# We want to link against Homebrew for dev workstation use, but rely on
+# distro Python in CI, which is why deps-ci doesn't install Python!
+ifeq ($(shell uname -s), Linux)
+PYENV_FLAGS = CFLAGS="$(shell pkg-config --cflags libffi ncurses readline)" \
+							LDFLAGS="$(shell pkg-config --libs libffi ncurses readline)" \
+							CC="$(firstword $(wildcard $(shell brew --prefix gcc)/bin/gcc-*))"
+endif
+
 $(PYTHON_EXEC): $(PYTHON_VERSION_FILE)
 	@echo "$(COLOR_BLUE)Installing Pythons from $(PYTHON_VERSION_FILE) using $(PYENV):$(COLOR_ORANGE)"
 	@grep ^[^\n#] $(PYTHON_VERSION_FILE) | sed -e 's/^/\t/'
 	@echo "$(COLOR_RESET)"
 
 	grep ^[^\n#] $(PYTHON_VERSION_FILE) | while read -r py ; do \
-	  $(PYENV) install --verbose --skip-existing "$${py}" ; done
+		$(PYENV_FLAGS) $(PYENV) install --verbose --skip-existing "$${py}" ; \
+	done
 
 ##@ Poetry
 
