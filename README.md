@@ -10,6 +10,9 @@ in the meantime.
 Then, run `make check test build` to build the distributable.
 Run `poetry run example-make-python-devex` to see the app in action.
 
+This system was built for and tested primarily on Apple® macOS® 11 and later.
+It may work on Linux with adjustments; PRs welcome.
+
 ## Legal Notices
 
 See [LICENSE](LICENSE.md) for licensing information.
