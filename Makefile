@@ -230,7 +230,7 @@ deps-peru: $(PERU_CONFIG) ## Installs dependencies from Peru
 	@echo "$(COLOR_GREEN)All Peru modules sync'd!$(COLOR_RESET)"
 
 .PHONY: deps-ci
-deps-ci: $(DEPS_TASKS_IF_PERU_CONFIG) poetry-install ## Install CI check and test dependencies (assumes Python & Poetry already present in env)
+deps-ci: poetry-install $(DEPS_TASKS_IF_PERU_CONFIG)  ## Install CI check and test dependencies (assumes Python & Poetry already present in env)
 	@echo "$(COLOR_GREEN)All CI dependencies installed!$(COLOR_RESET)"
 
 .PHONY: install-python
