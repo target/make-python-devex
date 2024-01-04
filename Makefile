@@ -247,8 +247,8 @@ endif
 # distro Python in CI, which is why deps-ci doesn't install Python!
 ifeq ($(shell uname -s), Linux)
 PYENV_FLAGS = CFLAGS="$(shell pkg-config --cflags libffi ncurses readline)" \
-							LDFLAGS="$(shell pkg-config --libs libffi ncurses readline)" \
-							CC="$(firstword $(wildcard $(shell brew --prefix gcc)/bin/gcc-*))"
+		LDFLAGS="$(shell pkg-config --libs libffi ncurses readline)" \
+		CC="$(firstword $(wildcard $(shell brew --prefix gcc)/bin/gcc-*))"
 endif
 
 $(PYTHON_EXEC): $(PYTHON_VERSION_FILE)
