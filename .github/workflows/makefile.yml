@@ -22,6 +22,9 @@ jobs:
       uses: Homebrew/actions/setup-homebrew@master
 
     - name: Install dependencies
+      env:
+        # Force overwriting during tests since a human cannot intervene
+        BREW_BUNDLE_OPTS: --force
       run: make deps
 
     - name: Run check
