@@ -209,7 +209,7 @@ COLOR_GREEN = \033[32m
 COLOR_RESET = \033[0m
 .PHONY: deps-brew
 deps-brew: ## Installs development dependencies from Homebrew
-	brew bundle install --no-lock --verbose --file=Brewfile
+	brew bundle install $(BREW_BUNDLE_OPTS) --no-lock --verbose --file=Brewfile
 	@test -n "$(PYENV_SHELL)" || ( \
 		echo "$(COLOR_ORANGE)PYENV_SHELL is empty so pyenv may not be setup.$(COLOR_RESET)" && \
 		echo "$(COLOR_ORANGE)Ensure that pyenv is setup in your shell config, e.g. in ~/.bashrc.$(COLOR_RESET)" && \
