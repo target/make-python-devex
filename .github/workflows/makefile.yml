@@ -27,7 +27,8 @@ jobs:
     - name: Install dependencies
       env:
         # Force overwriting during tests since a human cannot intervene
-        BREW_BUNDLE_OPTS: --force
+        # Do not upgrade dependents unless we have to
+        BREW_BUNDLE_OPTS: --force --no-upgrade
       run: make deps
 
     - name: Run check
