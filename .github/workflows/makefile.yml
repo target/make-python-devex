@@ -1,0 +1,73 @@
+name: make python devex basics
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-13
+          - macos-14
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+
+    - name: Add Poetry and pyenv setup
+      run: |
+        echo 'export PYENV_ROOT="$HOME/.pyenv"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+        echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+        echo 'eval "$(pyenv init -)"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+        (
+        	echo
+        	echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi'
+        ) | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+        echo 'export PATH="${HOME}/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+
+    - name: Install dependencies initially
+      shell: "bash --login -eo pipefail {0}"
+      env:
+        # Force overwriting during tests since a human cannot intervene
+        # Do not upgrade dependents unless we have to
+        BREW_BUNDLE_OPTS: --force --no-upgrade
+      # Have to run it twice because of some dependencies
+      # installed but not usable the first time.
+      run: make deps || true
+
+    - name: Show program paths
+      shell: "bash --login -eo pipefail {0}"
+      run: |
+        echo "${PATH}"
+        command -v pyenv || true
+        command -v poetry || true
+        command -v python3 || true
+
+    - name: Install dependencies after installing some dependencies
+      shell: "bash --login -eo pipefail {0}"
+      env:
+        # See above for an explanation of these options.
+        BREW_BUNDLE_OPTS: --force --no-upgrade
+      run: make deps
+
+    - name: Run check
+      shell: "bash --login -eo pipefail {0}"
+      run: make check
+
+    - name: Run tests
+      shell: "bash --login -eo pipefail {0}"
+      run: make test
+
+    - name: Run build
+      shell: "bash --login -eo pipefail {0}"
+      run: make build
