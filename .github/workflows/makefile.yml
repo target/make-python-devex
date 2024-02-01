@@ -26,14 +26,14 @@ jobs:
 
     - name: Add Poetry and pyenv setup
       run: |
-        echo 'export PYENV_ROOT="$HOME/.pyenv"' | tee -a ~/.zshrc | tee -a ~/.bashrc
-        echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc
-        echo 'eval "$(pyenv init -)"' | tee -a ~/.zshrc | tee -a ~/.bashrc
+        echo 'export PYENV_ROOT="$HOME/.pyenv"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+        echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+        echo 'eval "$(pyenv init -)"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
         (
         	echo
         	echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi'
-        ) | tee -a ~/.zshrc | tee -a ~/.bashrc
-        echo 'export PATH="${HOME}/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc
+        ) | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
+        echo 'export PATH="${HOME}/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
 
     - name: Install dependencies initially
       env:
@@ -51,7 +51,10 @@ jobs:
         command -v poetry || true
         command -v python3 || true
 
-    - name: Install dependecies after installing some dependencies
+    - name: Install dependencies after installing some dependencies
+      env:
+        # See above for an explanation of these options.
+        BREW_BUNDLE_OPTS: --force --no-upgrade
       run: make deps
 
     - name: Run check
