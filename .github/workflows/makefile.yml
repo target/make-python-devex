@@ -35,14 +35,24 @@ jobs:
         ) | tee -a ~/.zshrc | tee -a ~/.bashrc
         echo 'export PATH="${HOME}/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc
 
-    - name: Install dependencies
+    - name: Install dependencies initially
       env:
         # Force overwriting during tests since a human cannot intervene
         # Do not upgrade dependents unless we have to
         BREW_BUNDLE_OPTS: --force --no-upgrade
       # Have to run it twice because of some dependencies
       # installed but not usable the first time.
-      run: make deps || make deps
+      run: make deps || true
+
+    - name: Show program paths
+      run: |
+        echo "${PATH}"
+        command -v pyenv || true
+        command -v poetry || true
+        command -v python3 || true
+
+    - name: Install dependecies after installing some dependencies
+      run: make deps
 
     - name: Run check
       run: make check
