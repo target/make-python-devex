@@ -26,7 +26,7 @@ jobs:
 
     - name: Add Poetry install location to PATH in shell rcfiles
       run: |
-        echo 'export PATH="/Users/runner/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc
+        echo 'export PATH="${HOME}/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc
 
     - name: Install dependencies
       env:
