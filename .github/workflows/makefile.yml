@@ -36,6 +36,7 @@ jobs:
         echo 'export PATH="${HOME}/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
 
     - name: Install dependencies initially
+      shell: "bash -eo pipefail {0}"
       env:
         # Force overwriting during tests since a human cannot intervene
         # Do not upgrade dependents unless we have to
@@ -45,6 +46,7 @@ jobs:
       run: make deps || true
 
     - name: Show program paths
+      shell: "bash -eo pipefail {0}"
       run: |
         echo "${PATH}"
         command -v pyenv || true
@@ -52,16 +54,20 @@ jobs:
         command -v python3 || true
 
     - name: Install dependencies after installing some dependencies
+      shell: "bash -eo pipefail {0}"
       env:
         # See above for an explanation of these options.
         BREW_BUNDLE_OPTS: --force --no-upgrade
       run: make deps
 
     - name: Run check
+      shell: "bash -eo pipefail {0}"
       run: make check
 
     - name: Run tests
+      shell: "bash -eo pipefail {0}"
       run: make test
 
     - name: Run build
+      shell: "bash -eo pipefail {0}"
       run: make build
