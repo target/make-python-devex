@@ -33,7 +33,9 @@ jobs:
         # Force overwriting during tests since a human cannot intervene
         # Do not upgrade dependents unless we have to
         BREW_BUNDLE_OPTS: --force --no-upgrade
-      run: make deps
+      # Have to run it twice because of some dependencies
+      # installed but not usable the first time.
+      run: make deps || make deps
 
     - name: Run check
       run: make check
