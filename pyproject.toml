@@ -109,4 +109,5 @@ source = ["example"]
 [tool.ruff]
 # Same as Black.
 line-length = 119
-target-version = "py39"
+target-version = "py311"
+exclude = [".*", "dist", "__pypackages__", "build", "venv"]
