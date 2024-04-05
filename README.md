@@ -2,6 +2,8 @@
 
 This repository contains a simple Python® project setup
 using the Make Python DevEx system described and built by Colin Dean.
+Read more about why this exists at the Target Tech blog post
+[Make Python DevEx](https://tech.target.com/blog/make-python-devex).
 
 Run `make help` to see the tasks available.
 
