@@ -5,6 +5,17 @@ using the Make Python DevEx system described and built by Colin Dean.
 Read more about why this exists at the Target Tech blog post
 [Make Python DevEx](https://tech.target.com/blog/make-python-devex).
 
+> [!TIP]
+> **Quickstart:** With [Homebrew](https://brew.sh) installed and `brew` available (`which brew`):
+> ```bash
+> # if you use the gh CLI tool 
+> gh repo clone target/make-python-devex
+> # or just git
+> git clone https://github.com/target/make-python-devex.git
+> # then set it up, run deps twice in separate invocations
+> make deps
+> make deps check test build
+
 Run `make help` to see the tasks available.
 
 In theory, run `make deps` until it succeeds, following any instructions output
