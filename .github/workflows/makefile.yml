@@ -7,6 +7,15 @@ on:
     branches: [ "main" ]
 
 jobs:
+  poetry-checks:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    # This will post a comment on PRs when poetry.lock changes
+    - name: Diff poetry.lock
+      uses: nborrmann/diff-poetry-lock@c0afd3666864cec339f03ee5c5cf9cb671780c12
+
   build:
     strategy:
       matrix:
@@ -34,9 +43,6 @@ jobs:
         	echo 'if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi'
         ) | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
         echo 'export PATH="${HOME}/.local/bin:$PATH"' | tee -a ~/.zshrc | tee -a ~/.bashrc | tee -a ~/.profile
-
-    - name: Diff poetry.lock
-      uses: nborrmann/diff-poetry-lock@c0afd3666864cec339f03ee5c5cf9cb671780c12
 
     - name: Install dependencies initially
       shell: "bash --login -eo pipefail {0}"
