@@ -1,0 +1,30 @@
+# from https://github.com/browniebroke/pre-commit-autoupdate-action
+name: Pre-commit auto-update
+on:
+  # every day at midnight
+  schedule:
+    - cron: "0 16 * * 3"
+  # on demand  
+  workflow_dispatch:
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+      
+      - uses: browniebroke/pre-commit-autoupdate-action@v1.0.0
+      
+      - uses: peter-evans/create-pull-request@v6
+        if: always()
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: update/pre-commit-hooks
+          delete-branch: true
+          labels: dependencies
+          title: "Update pre-commit hooks"
+          commit-message: "chore: update pre-commit hooks"
+          body: Update versions of pre-commit hooks to the latest version.
+          add-paths: ".pre-commit-config.yaml"
