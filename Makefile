@@ -117,7 +117,7 @@ check: check-py-ruff-format check-py-ruff-lint check-py-mypy ## Run all checks
 
 .PHONY: check-py-ruff-lint
 check-py-ruff-lint: ## Run ruff linter
-	$(RUFF) $(RUFF_OPTS) $(MODULE_BASE_DIR) $(TESTS_BASE_DIR) || \
+	$(RUFF) $(RUFF_OPTS) check $(MODULE_BASE_DIR) $(TESTS_BASE_DIR) || \
 		(echo "$(COLOR_RED)Run '$(notdir $(MAKE)) check-py-ruff-fix' to fix some of these automatically if [*] appears above, then run '$(notdir $(MAKE)) $(MAKECMDGOALS)' again." && false)
 
 .PHONY: check-py-ruff-fix
