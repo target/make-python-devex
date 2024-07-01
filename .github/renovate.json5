@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["local>python/whitesource-config"],
+  // This inhibits Renovate automerging updates when Dependabot handles that on public GitHub.
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "automerge": false
+    }
+  ]
+}
