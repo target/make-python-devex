@@ -137,7 +137,7 @@ REPORTS_DIR = $(BUILD_DIR)/reports
 MYPY_OPTS ?= --show-column-numbers --pretty --html-report $(REPORTS_DIR)/mypy
 .PHONY: check-py-mypy
 check-py-mypy: ## Run MyPy typechecker
-	$(MYPY) $(MYPY_OPTS) example tests
+	$(MYPY) $(MYPY_OPTS) $(MODULE_BASE_DIR) $(TESTS_BASE_DIR)
 
 .PHONY: check-precommit
 check-precommit: ## Runs pre-commit on all files
