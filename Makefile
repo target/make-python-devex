@@ -67,6 +67,7 @@ endif
 # Setting them with ?= enables override, e.g. `make deps PYENV=path/to/dev/pyenv`
 PYENV ?= pyenv
 CURRENT_PYTHON ?= python3
+PRECOMMIT ?= pre-commit
 POETRY ?= $(FLAGS) poetry
 PERU ?= $(POETRY) run peru
 RUFF ?= $(POETRY) run ruff
@@ -141,7 +142,7 @@ check-py-mypy: ## Run MyPy typechecker
 
 .PHONY: check-precommit
 check-precommit: ## Runs pre-commit on all files
-	pre-commit run --all-files
+	$(PRECOMMIT) run --all-files
 
 .PHONY: format-py
 format-py: ## Runs formatter, makes changes where necessary
@@ -169,7 +170,7 @@ install-precommit: $(GIT_HOOKS) ## Sets up pre-commit hooks
 	@echo "$(COLOR_GREEN)Pre-commit configured, will run on future commits!$(COLOR_RESET)"
 
 $(GIT_HOOKS): .pre-commit-config.yaml
-	pre-commit install
+	$(PRECOMMIT) install
 
 .PHONY: does-path-have-reqs
 does-path-have-reqs: ## Check if shell $PATH has expected elements
