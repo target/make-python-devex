@@ -556,12 +556,12 @@ files = [
 
 [[package]]
 name = "peru"
-version = "1.3.1"
+version = "1.3.2"
 description = "A tool for fetching code"
 optional = false
 python-versions = "*"
 files = [
-    {file = "peru-1.3.1.tar.gz", hash = "sha256:31cbcc3b1c0663866fcfb2065cb7ac26fda1843a3e5638f260cc0d78b3372f39"},
+    {file = "peru-1.3.2.tar.gz", hash = "sha256:161d9fd85d8d37ef10eed1d8b38da126d7ba9554b585e40ed2964138fc3b2f00"},
 ]
 
 [package.dependencies]
