@@ -21,6 +21,7 @@ jobs:
         if: always()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          sign-commits: true
           branch: update/pre-commit-hooks
           delete-branch: true
           labels: dependencies
