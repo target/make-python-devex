@@ -38,7 +38,7 @@ pytest-cov = "*"
 # opinionated code formatter
 black = ">=22"
 # type hints checker
-mypy = "*"
+mypy = { version = "*", extras = ["faster-cache"] }
 # xml library, used for outputting HTML reports from mypy, etc.
 lxml = "*"
 # lightning fast linter and style checker
