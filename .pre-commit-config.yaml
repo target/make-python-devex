@@ -19,13 +19,13 @@ repos:
 
   # strips outputs from notebook files to reduce churn and minimize repo size
   - repo: https://github.com/kynan/nbstripout
-    rev: "0.7.1"
+    rev: "0.8.0"
     hooks:
       - id: nbstripout
 
   # Prevent old Pythonisms
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.17.0
+    rev: v3.19.0
     hooks:
     - id: pyupgrade
 
