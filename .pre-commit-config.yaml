@@ -19,7 +19,7 @@ repos:
 
   # strips outputs from notebook files to reduce churn and minimize repo size
   - repo: https://github.com/kynan/nbstripout
-    rev: "0.8.0"
+    rev: "0.8.1"
     hooks:
       - id: nbstripout
 
