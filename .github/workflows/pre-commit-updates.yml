@@ -16,6 +16,8 @@ jobs:
       - uses: actions/setup-python@v5
       
       - uses: browniebroke/pre-commit-autoupdate-action@v1.0.0
+        env:
+          SKIP: "Reset Poetry Project Version to 0.0.0"
       
       - uses: peter-evans/create-pull-request@v7
         if: always()

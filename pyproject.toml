@@ -15,7 +15,7 @@ example-make-python-devex = "example:main"
 
 [tool.poetry.dependencies]
 # set Python constraints
-python = ">=3.9,<3.13"
+python = ">=3.9,<3.14"
 ## commonly used libraries
 # retry failing method calls
 retry2 = "^0.9"
@@ -38,7 +38,7 @@ pytest-cov = "*"
 # opinionated code formatter
 black = ">=22"
 # type hints checker
-mypy = "*"
+mypy = { version = "*", extras = ["faster-cache"] }
 # xml library, used for outputting HTML reports from mypy, etc.
 lxml = "*"
 # lightning fast linter and style checker
@@ -68,11 +68,11 @@ priority = "explicit"
 [tool.black]
 # 119 = GitHub's wrapping limit
 line-length = 119
-target-version = ['py39']
+target-version = ['py313']
 include = '\.pyi?$'
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.13"
 warn_return_any = true
 warn_unused_configs = true
 
@@ -109,5 +109,5 @@ source = ["example"]
 [tool.ruff]
 # Same as Black.
 line-length = 119
-target-version = "py311"
+target-version = "py313"
 exclude = [".*", "dist", "__pypackages__", "build", "venv"]
