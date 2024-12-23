@@ -8,7 +8,7 @@ Read more about why this exists at the Target Tech blog post
 > [!TIP]
 > **Quickstart:** With [Homebrew](https://brew.sh) installed and `brew` available (`which brew`):
 > ```bash
-> # if you use the gh CLI tool 
+> # if you use the gh CLI tool
 > gh repo clone target/make-python-devex
 > # or just git
 > git clone https://github.com/target/make-python-devex.git

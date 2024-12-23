@@ -53,4 +53,3 @@ if OS.linux?
 end
 
 # vim: set filetype=ruby syntax=brewfile
-
