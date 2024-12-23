@@ -11,15 +11,15 @@ jobs:
   auto-update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5
       
-      - uses: browniebroke/pre-commit-autoupdate-action@v1.0.0
+      - uses: browniebroke/pre-commit-autoupdate-action@deb83bfe0036e1116ee4e241d6220274d69b1f9e # v1.0.0
         env:
           SKIP: "Reset Poetry Project Version to 0.0.0"
       
-      - uses: peter-evans/create-pull-request@v7
+      - uses: peter-evans/create-pull-request@5e914681df9dc83aa4e4905692ca88beb2f9e91f # v7
         if: always()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

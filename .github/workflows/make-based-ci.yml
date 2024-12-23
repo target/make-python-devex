@@ -18,7 +18,7 @@ jobs:
       contents: read
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
     # This will post a comment on PRs when poetry.lock changes
     - name: Diff poetry.lock
       uses: nborrmann/diff-poetry-lock@c0afd3666864cec339f03ee5c5cf9cb671780c12
@@ -35,7 +35,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
     
     - name: Set up Homebrew
       id: set-up-homebrew
