@@ -1,10 +1,11 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  // This inhibits Renovate automerging updates when Dependabot handles that on public GitHub.
-  "packageRules": [
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  packageRules: [
     {
-      "matchPackagePatterns": ["*"],
-      "automerge": false
-    }
-  ]
+      automerge: false,
+      matchPackageNames: [
+        '*',
+      ],
+    },
+  ],
 }
