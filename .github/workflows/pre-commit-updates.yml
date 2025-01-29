@@ -17,7 +17,7 @@ jobs:
 
       - uses: browniebroke/pre-commit-autoupdate-action@deb83bfe0036e1116ee4e241d6220274d69b1f9e # v1.0.0
         env:
-          SKIP: "Reset Poetry Project Version to 0.0.0"
+          SKIP: "poetry-version-resetter"
 
       - uses: peter-evans/create-pull-request@67ccf781d68cd99b580ae25a5c18a1cc84ffff1f # v7
         if: always()
