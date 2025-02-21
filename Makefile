@@ -122,7 +122,7 @@ check-py-ruff-lint: ## Run ruff linter
 		(echo "$(COLOR_RED)Run '$(notdir $(MAKE)) check-py-ruff-fix' to fix some of these automatically if [*] appears above, then run '$(notdir $(MAKE)) $(MAKECMDGOALS)' again." && false)
 
 .PHONY: check-py-ruff-fix
-check-py-ruff-fix: ## Run ruff linter
+check-py-ruff-fix: ## Run ruff linter with automatic fixes
 	$(MAKE) check-py-ruff-lint RUFF_CHECK_OPTS=--fix
 
 .PHONY: check-py-black
