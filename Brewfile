@@ -2,7 +2,7 @@
 
 # venerable build tool
 # Follow caveats during installation to complete setup
-brew 'make' if OS.mac? # otherwise, assume we have GNU Make on Linux
+brew "make" if OS.mac? # otherwise, assume we have GNU Make on Linux
 # Python version manager
 # Follow caveats during installation to complete setup
 brew "pyenv"
@@ -31,8 +31,8 @@ if OS.mac? && Hardware::CPU.arm?
 end
 
 ## PYTHON BUILD DEPENDENCIES
-py_version = open('.python-version').read.strip.split('.').take(2).join('.')
-brew "python@#{py_version}", args: ['only-dependencies']
+py_version = open(".python-version").read.strip.split(".").take(2).join(".")
+brew "python@#{py_version}", args: ["only-dependencies"]
 # PyEnv suggests installing these for building Python using
 # Homebrew-provided dependencies on Linux.
 # This exists here primarily for running in containers, such as
