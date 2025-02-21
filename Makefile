@@ -273,7 +273,7 @@ poetry-update: ## Run poetry update with any environment-required flags, pass PK
 
 .PHONY: poetry-relock
 poetry-relock: pyproject.toml ## Run poetry lock w/o updating deps, use after changing pyproject.toml trivially
-	$(POETRY) lock --no-update
+	$(POETRY) lock
 
 .PHONY: poetry-build
 poetry-build: poetry-set-version ## Run poetry build with any environment-required flags
