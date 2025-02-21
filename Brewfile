@@ -9,7 +9,7 @@ brew "pyenv"
 # Manage virtualenvs with Pyenv just in case
 brew "pyenv-virtualenv"
 # Dockerfile linting, but only if we have Dockerfiles
-brew "hadolint" unless %x[find . -iname Dockerfile].empty?
+brew "hadolint" unless %x[git ls-files '*Dockerfile*'].empty?
 # Pre-commit checks, if we have a config
 brew "pre-commit" if File.exist?(".pre-commit-config.yaml")
 
