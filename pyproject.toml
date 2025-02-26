@@ -1,64 +1,44 @@
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
+authors = [
+    {name = "Colin Dean", email = "c.o.l.i.n.d.e.a.n@example.com"},
+]
+license = {text = "CC0"}
+requires-python = "<3.14,>=3.9"
+dependencies = [
+    "retry2<1.0,>=0.9",
+    "deprecated<2.0,>=1.2",
+    "loguru",
+]
 name = "example"
 version = "0.0.0"
 description = "This is a demonstration of the Make Python Devex concept project"
-authors = ["Colin Dean <c.o.l.i.n.d.e.a.n@example.com>"]
-license = "CC0"
 readme = "README.md"
 
-[tool.poetry.scripts]
+[project.scripts]
 example-make-python-devex = "example:main"
 
-[tool.poetry.dependencies]
-# set Python constraints
-python = ">=3.9,<3.14"
-## commonly used libraries
-# retry failing method calls
-retry2 = "^0.9"
-# mark things as deprecated
-deprecated = "^1.2"
-# simple logging that just works
-loguru = "*"
-
-[tool.poetry.group.dev.dependencies]
-# test framework
-pytest = "^8"
-# html output
-pytest-html = "*"
-# necessary for best html output
-ansi2html = "*"
-# Test Anything Protocol output
-pytest-tap = "*"
-# coverage.py integration
-pytest-cov = "*"
-# opinionated code formatter
-black = ">=22"
-# type hints checker
-mypy = { version = "*", extras = ["faster-cache"] }
-# xml library, used for outputting HTML reports from mypy, etc.
-lxml = "*"
-# lightning fast linter and style checker
-ruff = "*"
-# universal dependency retriver
-peru = "*"
-
-## types packages
-types-Deprecated = "*"
-types-retry = "*"
+[dependency-groups]
+dev = [
+    "pytest<9,>=8",
+    "pytest-html",
+    "ansi2html",
+    "pytest-tap",
+    "pytest-cov",
+    "black>=22",
+    "mypy[faster-cache]",
+    "lxml",
+    "ruff",
+    "peru",
+    "types-Deprecated",
+    "types-retry",
+]
 
 
-## Configure publish destination explicitly, for safety
-## Default is PyPI but you probably don't want to do that internally.
-## See also https://python-poetry.org/docs/repositories/#publishable-repositories
-[[tool.poetry.source]]
-name = "publish-source"
-url = "https://pypi.example.com/pypi/example-repo"
-# url = "https://pypi.org/simple/"
-priority = "explicit"
+[tool.uv]
+package = true
+
+[tool.uv.workspace]
+members = ["example"]
 
 ###
 # Below here are rarely-touched settings for the various tools used in this project.

@@ -10,7 +10,7 @@
 ##
 
 ## Source location
-MODULE_BASE_DIR = example
+MODULE_BASE_DIR = src/example
 TESTS_BASE_DIR = tests
 
 ## Pythonic variables
@@ -69,11 +69,11 @@ PYENV ?= pyenv
 CURRENT_PYTHON ?= python3
 PRECOMMIT ?= pre-commit
 POETRY ?= $(FLAGS) poetry
-PERU ?= $(POETRY) run peru
-RUFF ?= $(POETRY) run ruff
-BLACK ?= $(POETRY) run black
-MYPY ?= $(POETRY) run mypy
-PYTEST ?= $(POETRY) run pytest
+UV ?= $(FLAGS) uv
+PERU ?= $(UV) run peru
+RUFF ?= $(UV) run ruff
+MYPY ?= $(UV) run mypy
+PYTEST ?= $(UV) run pytest
 
 ###
 ### TASKS
@@ -151,10 +151,10 @@ format-py: ## Runs formatter, makes changes where necessary
 ##@ Building and Publishing
 
 .PHONY: build
-build: poetry-build ## Build an artifact
+build: uv-build ## Build an artifact
 
 .PHONY: publish
-publish: poetry-publish ## Publish an artifact
+publish: uv-publish ## Publish an artifact
 
 
 ##@ Manual Setup
@@ -197,10 +197,10 @@ install-poetry: ## Installs Poetry to the current Python environment
 deps: deps-brew deps-py $(DEPS_TASKS_IF_PERU_CONFIG) install-precommit ## Installs all dependencies
 	@echo "$(COLOR_GREEN)All deps installed!$(COLOR_RESET)"
 .PHONY: deps-py
-deps-py: install-python $(POETRY_TASK) poetry-use-pyenv poetry-install ## Install Python-based dependencies
+deps-py: install-python $(POETRY_TASK) poetry-use-pyenv uv-install ## Install Python-based dependencies
 	@echo "$(COLOR_GREEN)All Python deps installed!$(COLOR_RESET)"
 .PHONY: deps-py-update
-deps-py-update: poetry-update ## Update Poetry deps, e.g. after adding a new one manually
+deps-py-update: uv-update ## Update Python deps, e.g. after adding a new one manually
 	@echo "$(COLOR_GREEN)All Python deps updated!$(COLOR_RESET)"
 
 COLOR_ORANGE = \033[33m
@@ -261,23 +261,23 @@ $(PYTHON_EXEC): $(PYTHON_VERSION_FILE)
 		$(PYENV_FLAGS) $(PYENV) install --verbose --skip-existing "$${py}" ; \
 	done
 
-##@ Poetry
+##@ uv
 
-.PHONY: poetry-install
-poetry-install: ## Run poetry install with any environment-required flags
-	$(POETRY) install
+.PHONY: uv-install
+uv-install: ## Run uv install with any environment-required flags
+	$(UV) sync --locked
 
-.PHONY: poetry-update
-poetry-update: ## Run poetry update with any environment-required flags, pass PKGS=pkg to update only pkg
-	time $(POETRY) update -v $(PKGS)
+.PHONY: uv-update
+uv-update: ## Run uv update with any environment-required flags
+	time $(UV) lock --upgrade $(PKGS)
 
 .PHONY: poetry-relock
-poetry-relock: pyproject.toml ## Run poetry lock w/o updating deps, use after changing pyproject.toml trivially
-	$(POETRY) lock --no-update
+uv-relock: pyproject.toml ## Run uv lock w/o updating deps, use after changing pyproject.toml trivially
+	$(POETRY) lock
 
-.PHONY: poetry-build
-poetry-build: poetry-set-version ## Run poetry build with any environment-required flags
-	$(POETRY) build
+.PHONY: uv-build
+uv-build: uv-set-version ## Run uv build with any environment-required flags
+	$(UV) build
 
 # For release builds, pass this into poetry-set-version-from-git, e.g. ARTIFACT_VERSION=${CI_BUILD_TAG}
 ifndef ARTIFACT_VERSION
