@@ -10,6 +10,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
+permissions: {}
+
 jobs:
   poetry-checks:
     runs-on: ubuntu-latest
@@ -19,6 +21,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      with:
+        persist-credentials: false
     # This will post a comment on PRs when poetry.lock changes
     - name: Diff poetry.lock
       uses: nborrmann/diff-poetry-lock@c0afd3666864cec339f03ee5c5cf9cb671780c12
@@ -36,6 +40,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      with:
+        persist-credentials: false
 
     - name: Set up Homebrew
       id: set-up-homebrew
