@@ -10,7 +10,7 @@
 ##
 
 ## Source location
-MODULE_BASE_DIR = example
+MODULE_BASE_DIR = src/example
 TESTS_BASE_DIR = tests
 
 ## Pythonic variables
