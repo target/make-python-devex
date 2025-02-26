@@ -203,6 +203,13 @@ deps-py: install-python $(POETRY_TASK) poetry-use-pyenv poetry-install ## Instal
 deps-py-update: poetry-update ## Update Poetry deps, e.g. after adding a new one manually
 	@echo "$(COLOR_GREEN)All Python deps updated!$(COLOR_RESET)"
 
+.PHONY: deps-py-upgrade-python
+deps-py-upgrade-python: ## Run after upgrading Python version
+	@echo "$(COLOR_ORANGE)Running deps twice with possible poetry-relock…$(COLOR_RESET)"
+	$(MAKE) deps || $(MAKE) poetry-relock
+	$(MAKE) deps
+	@echo "$(COLOR_GREEN)Python version updated! Don't forget to run check and test.$(COLOR_RESET)"
+
 COLOR_ORANGE = \033[33m
 COLOR_BLUE = \033[34m
 COLOR_RED = \033[31m
