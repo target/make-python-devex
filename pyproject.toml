@@ -1,21 +1,29 @@
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
+[project]
 name = "example"
-version = "0.0.0"
 description = "This is a demonstration of the Make Python Devex concept project"
-authors = ["Colin Dean <c.o.l.i.n.d.e.a.n@example.com>"]
 license = "CC0"
 readme = "README.md"
+authors = [
+    {name = "Colin Dean",email = "c.o.l.i.n.d.e.a.n@example.com"}
+]
+requires-python = ">=3.13,<4.0.0"
+dynamic = [ "version", "dependencies" ]
 
-[tool.poetry.scripts]
+
+[tool.poetry]
+version = "0.0.0"
+packages = [{include = "example", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
 example-make-python-devex = "example:main"
 
 [tool.poetry.dependencies]
 # set Python constraints
-python = ">=3.9,<3.14"
+python = ">=3.13,<4.0"
 ## commonly used libraries
 # retry failing method calls
 retry2 = "^0.9"
