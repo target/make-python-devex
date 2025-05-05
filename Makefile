@@ -174,24 +174,26 @@ $(GIT_HOOKS): .pre-commit-config.yaml
 
 .PHONY: deps-reqs-versions
 deps-reqs-versions: ## Check if shell $PATH has requirements and show their version
-	@echo "$(COLOR_BLUE)Checking PATH elements for evidence of package managers. The first in each section is what's used.$(COLOR_RESET)"
+	@echo "$(COLOR_BLUE)Checking PATH elements for evidence of required tools. The first in each section is what's used.$(COLOR_RESET)"
 	@$(MAKE) paths-version-for-cmd CMD=poetry
 	@$(MAKE) paths-version-for-cmd CMD=pyenv
 	@$(MAKE) paths-version-for-cmd CMD=brew
 	@$(MAKE) paths-version-for-cmd CMD=curl
 	@$(MAKE) paths-version-for-cmd CMD=git
+	@$(MAKE) paths-version-for-cmd CMD=pre-commit
 	@echo "$(COLOR_GREEN)All expected PATH elements found$(COLOR_RESET)"
 
 CMD_VERSION_FLAG ?= --version
+WHICH ?= which
 .PHONY: paths-version-for-cmd
 paths-version-for-cmd: ## Display version for all executable paths for an executable, set CMD & CMD_VERSION_FLAG
 	@( if [ -z "$$(which -a $(CMD))" ]; then \
-	     echo "==> $(COLOR_RED)missing $(CMD)$(COLOR_RESET)"; \
+		 echo "==> $(COLOR_RED)missing $(CMD)$(COLOR_RESET)"; \
 	   else \
-	     echo "==> $(COLOR_ORANGE)$(CMD) $(COLOR_BLUE)commands' versions are:$(COLOR_RESET)"; \
-	     for pth in $$(which -a $(CMD)); do \
-		   echo "$(COLOR_BLUE)$${pth}$(COLOR_RESET) : $$("$${pth}" $(CMD_VERSION_FLAG))"; \
-		 done; \
+		 echo "==> $(COLOR_ORANGE)$(CMD) $(COLOR_BLUE)commands' versions are:$(COLOR_RESET)"; \
+		 for pth in $$($(WHICH) -a $(CMD)); do \
+			   echo "$(COLOR_BLUE)$${pth}$(COLOR_RESET) : $$("$${pth}" $(CMD_VERSION_FLAG))"; \
+			 done; \
 	   fi )
 
 ##@ Dependencies
