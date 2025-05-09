@@ -249,9 +249,12 @@ deps-brew: ## Installs development dependencies from Homebrew
 		echo "$(COLOR_RED)Run your make command again after adding the above so that $(PYENV) is available.$(COLOR_RESET)"
 
 .PHONY: deps-peru
-deps-peru: $(PERU_CONFIG) ## Installs dependencies from Peru
-	$(PERU) sync
+deps-peru: .peru/lastimports  ## Installs dependencies from Peru
 	@echo "$(COLOR_GREEN)All Peru modules sync'd!$(COLOR_RESET)"
+
+# peru outputs this file as a hash of the state of peru.yaml
+.peru/lastimports: $(PERU_CONFIG)
+	$(PERU) sync --verbose --jobs $(shell nproc)
 
 .PHONY: deps-ci
 deps-ci: poetry-install $(DEPS_TASKS_IF_PERU_CONFIG)  ## Install CI check and test dependencies (assumes Python & Poetry already present in env)
