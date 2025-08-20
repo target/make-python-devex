@@ -23,6 +23,28 @@ jobs:
         env:
           SKIP: "poetry-version-resetter"
 
+      - name: Upload changed .pre-commit-config.yaml
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: ".pre-commit-config.yaml"
+          path: ".pre-commit-config.yaml"
+
+  # This second, dependent job is necessary to isolate the content:write permissions that the auto-update job doesn't need.
+  pr:
+    needs: auto-update
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest  
+    steps:
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+        with:
+          persist-credentials: false
+
+      - name: Download changed .pre-commit-config.yaml
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
+        with:
+          name: ".pre-commit-config.yaml"
+
       - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7
         if: always()
         with:
