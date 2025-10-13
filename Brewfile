@@ -32,7 +32,8 @@ end
 
 ## PYTHON BUILD DEPENDENCIES
 py_version = open(".python-version").read.strip.split(".").take(2).join(".")
-brew "python@#{py_version}", args: ["only-dependencies"]
+# Drop link:false when https://github.com/orgs/Homebrew/discussions/6133 is fixed
+brew "python@#{py_version}", link: false, args: ["only-dependencies"]
 # PyEnv suggests installing these for building Python using
 # Homebrew-provided dependencies on Linux.
 # This exists here primarily for running in containers, such as
