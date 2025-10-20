@@ -330,7 +330,7 @@ dist/requirements.txt: poetry.lock pyproject.toml
 .PHONY: poetry-debug
 poetry-debug: ## Shows Poetry debug include any envvars passed to Poetry
 	@echo POETRY=$(POETRY)
-	$(POETRY) debug
+	$(POETRY) debug info
 
 .PHONY: poetry-use-pyenv
 poetry-use-pyenv: $(PYTHON_VERSION_FILE) ## Configure Poetry to use the expected base Python for its virtualenv
