@@ -14,6 +14,8 @@ permissions: {}
 
 jobs:
   poetry-checks:
+    # FIXME: Remove when https://github.com/target/make-python-devex/issues/119 is fixed
+    continue-on-error: true
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
