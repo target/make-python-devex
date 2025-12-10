@@ -10,17 +10,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-permissions: {}
+# permissions: {}
 
 jobs:
   poetry-checks:
     # FIXME: Remove when https://github.com/target/make-python-devex/issues/119 is fixed
     continue-on-error: true
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-      issues: write
-      contents: read
+#    permissions:
+#      pull-requests: write
+#      issues: write
+#      contents: read
     steps:
     - name: Checkout code
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
