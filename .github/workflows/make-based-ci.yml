@@ -27,7 +27,7 @@ jobs:
         persist-credentials: false
     # This will post a comment on PRs when poetry.lock changes
     - name: Diff poetry.lock
-      uses: nborrmann/diff-poetry-lock@c0afd3666864cec339f03ee5c5cf9cb671780c12
+      uses: colindean/diff-poetry-lock@nl
 
 
   build:
