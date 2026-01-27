@@ -27,4 +27,3 @@ jobs:
     # This will post a comment on PRs when poetry.lock changes
     - name: Diff poetry.lock
       uses: target/diff-poetry-lock@1ef13108b924e907ed695ac172503091bd0129d4 # v0.0.3
-
