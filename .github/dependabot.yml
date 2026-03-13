@@ -9,6 +9,8 @@ updates:
     commit-message:
       prefix: "chore: Update Python dep"
       prefix-development: "chore: Update Python dev dep"
+    cooldown:
+      default-days: 7
   - package-ecosystem: "github-actions" # See documentation for possible values
     # Workflow files stored in the default location of `.github/workflows`
     # You don't need to specify `/.github/workflows` for `directory`
@@ -19,3 +21,5 @@ updates:
     commit-message:
       prefix: "chore: Update GHA dep"
       prefix-development: "chore: Update GHA dev dep"
+    cooldown:
+      default-days: 7
