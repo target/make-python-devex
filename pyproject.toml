@@ -35,7 +35,7 @@ loguru = "*"
 
 [tool.poetry.group.dev.dependencies]
 # test framework
-pytest = "^8"
+pytest = "^9"
 # html output
 pytest-html = "*"
 # necessary for best html output
