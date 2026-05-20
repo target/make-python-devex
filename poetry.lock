@@ -1160,14 +1160,14 @@ yaml = ["more-itertools", "pyyaml (>=5.1)"]
 
 [[package]]
 name = "types-deprecated"
-version = "1.3.1.20260130"
+version = "1.3.1.20260520"
 description = "Typing stubs for Deprecated"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "types_deprecated-1.3.1.20260130-py3-none-any.whl", hash = "sha256:593934d85c38ca321a9d301f00c42ffe13e4cf830b71b10579185ba0ce172d9a"},
-    {file = "types_deprecated-1.3.1.20260130.tar.gz", hash = "sha256:726b05e5e66d42359b1d6631835b15de62702588c8a59b877aa4b1e138453450"},
+    {file = "types_deprecated-1.3.1.20260520-py3-none-any.whl", hash = "sha256:8af853b7ccd3b7685159f3ab2e3b6f7999b6cd7e425cda02749e32a42a96c7d6"},
+    {file = "types_deprecated-1.3.1.20260520.tar.gz", hash = "sha256:4d0d9e5521432d9ce88169fb8b793b45d70d8e8cc1a7ecd5a4465abbf83c9ab4"},
 ]
 
 [[package]]
