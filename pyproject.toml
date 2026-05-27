@@ -45,7 +45,7 @@ pytest-tap = "*"
 # coverage.py integration
 pytest-cov = "*"
 # opinionated code formatter
-black = ">=22"
+black = ">=26.5.1"
 # type hints checker
 mypy = { version = "*", extras = ["faster-cache"] }
 # xml library, used for outputting HTML reports from mypy, etc.
