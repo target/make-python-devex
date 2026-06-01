@@ -1239,14 +1239,14 @@ files = [
 
 [[package]]
 name = "types-retry"
-version = "0.9.9.20250322"
+version = "0.9.9.20260408"
 description = "Typing stubs for retry"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "types_retry-0.9.9.20250322-py3-none-any.whl", hash = "sha256:77cf8dbbe1640c6c471eafd5b9a4ce206f30b7faa6dac41a16cbcb18b1cc8ec2"},
-    {file = "types_retry-0.9.9.20250322.tar.gz", hash = "sha256:2eaa6f4b832c187121056988bbe6d2d0b6f4eb03631fdc9752e2ac2802f7b726"},
+    {file = "types_retry-0.9.9.20260408-py3-none-any.whl", hash = "sha256:f1d0677e03235fa04b66332d4ec004211dbf85b08b863e19b7dfcbf604622c50"},
+    {file = "types_retry-0.9.9.20260408.tar.gz", hash = "sha256:3f98fa62ec027449383f5c019cceacc784c1dbab4760989ddab421f7b8407d92"},
 ]
 
 [[package]]
