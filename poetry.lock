@@ -2,14 +2,14 @@
 
 [[package]]
 name = "ansi2html"
-version = "1.9.2"
+version = "1.9.5"
 description = "Convert text with ANSI color codes to HTML or to LaTeX"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "ansi2html-1.9.2-py3-none-any.whl", hash = "sha256:dccb75aa95fb018e5d299be2b45f802952377abfdce0504c17a6ee6ef0a420c5"},
-    {file = "ansi2html-1.9.2.tar.gz", hash = "sha256:3453bf87535d37b827b05245faaa756dbab4ec3d69925e352b6319c3c955c0a5"},
+    {file = "ansi2html-1.9.5-py3-none-any.whl", hash = "sha256:fff3d25b149951474a688c7e22240f93e69ac5aa023c44ab5dce806befcba281"},
+    {file = "ansi2html-1.9.5.tar.gz", hash = "sha256:ae17e92f1d6cac0e67d367e07fb0ba8a23dac8f193fc5d7a8c8a50fe5ddd95a4"},
 ]
 
 [package.extras]
