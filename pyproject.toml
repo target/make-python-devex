@@ -29,7 +29,7 @@ python = ">=3.13,<4.0"
 # retry failing method calls
 retry2 = "^0.9"
 # mark things as deprecated
-deprecated = "^1.2"
+deprecated = "^3.0"
 # simple logging that just works
 loguru = "*"
 
