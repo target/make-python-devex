@@ -1134,14 +1134,14 @@ test = ["black (>=22.1.0)", "flake8 (>=4.0.1)", "pre-commit (>=2.17.0)", "tox (>
 
 [[package]]
 name = "pytest-tap"
-version = "3.5"
+version = "3.6"
 description = "Test Anything Protocol (TAP) reporting plugin for pytest"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.11"
 groups = ["dev"]
 files = [
-    {file = "pytest_tap-3.5-py3-none-any.whl", hash = "sha256:bce47102465db4fa09c0948bbf8867543143a9b9d16af77a2efbaffb4ec1072a"},
-    {file = "pytest_tap-3.5.tar.gz", hash = "sha256:11b3b475b919e9d5c0e995b441fab0b92c57a46cec818132b71264fdfbd56a32"},
+    {file = "pytest_tap-3.6-py3-none-any.whl", hash = "sha256:8587222a8dd6880dfb8f39c7c9d1a3321c5e97d1c0add1a72c96a389e2cfebac"},
+    {file = "pytest_tap-3.6.tar.gz", hash = "sha256:eb511bbeea66c2dbd4449ef35d3a8d5dc44255f85229d78f2abc8c1950eaa327"},
 ]
 
 [package.dependencies]
